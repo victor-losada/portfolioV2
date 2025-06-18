@@ -1,0 +1,307 @@
+---
+const socialLinks = [
+	{ icon: 'fab fa-github', url: 'https://github.com/victor-losada' },
+	{ icon: 'fab fa-linkedin', url: '#' },
+	{ icon: 'fab fa-instagram', url: 'https://www.instagram.com/victorl_11/' }
+];
+---
+
+<section id="inicio" class="hero section">
+	<div class="container hero-container">
+		<div class="hero-content fade-in">
+			<h1 class="hero-title">
+				<span class="greeting">¡Hola! Soy</span>
+				<span class="name">Víctor Manuel Losada Rojas</span>
+				<span class="title">Desarrollador Full-Stack</span>
+			</h1>
+			<p class="hero-description">
+				Desarrollador Full-Stack especializado en la creación de aplicaciones web modernas utilizando React.js, Node.js, MySQL, MongoDB y otras tecnologías. 
+				Apasionado por la modernización empresarial a través de soluciones digitales eficientes y escalables.
+			</p>
+			<div class="hero-buttons">
+				<a href="#proyectos" class="btn btn-primary">
+					<span class="btn-content">
+						<i class="fas fa-code"></i>
+						Ver Proyectos
+					</span>
+					<span class="btn-glow"></span>
+				</a>
+				<a href="#contacto" class="btn btn-secondary">
+					<span class="btn-content">
+						<i class="fas fa-envelope"></i>
+						Contactar
+					</span>
+					<span class="btn-glow"></span>
+				</a>
+			</div>
+			<div class="social-links">
+				{socialLinks.map(link => (
+					<a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link">
+						<i class={link.icon}></i>
+						<span class="social-link-text">{link.icon.split('-')[2]}</span>
+					</a>
+				))}
+			</div>
+		</div>
+		<div class="hero-image-container fade-in">
+			<div class="hero-image-wrapper">
+				<img src="/hero-image.svg" alt="Ilustración de desarrollo web" class="hero-image" />
+				<div class="floating-elements">
+					<div class="floating-element element-1">
+						<i class="fab fa-react"></i>
+					</div>
+					<div class="floating-element element-2">
+						<i class="fab fa-node-js"></i>
+					</div>
+					<div class="floating-element element-3">
+						<i class="fab fa-js"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.hero-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: center;
+	}
+
+	.hero-content {
+		z-index: 1;
+	}
+
+	.hero-title {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.greeting {
+		font-size: 1.5rem;
+		color: var(--primary-color);
+		font-weight: 500;
+	}
+
+	.name {
+		font-size: 4rem;
+		font-weight: 700;
+		background: linear-gradient(83.21deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		line-height: 1.2;
+	}
+
+	.title {
+		font-size: 2rem;
+		color: var(--text-color);
+		opacity: 0.9;
+	}
+
+	.hero-description {
+		font-size: 1.2rem;
+		color: var(--text-color);
+		opacity: 0.8;
+		margin-bottom: 2rem;
+		max-width: 600px;
+	}
+
+	.hero-buttons {
+		display: flex;
+		gap: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	.btn {
+		position: relative;
+		padding: 1rem 2rem;
+		border-radius: 0.5rem;
+		font-weight: 500;
+		text-decoration: none;
+		overflow: hidden;
+		transition: all 0.3s ease;
+	}
+
+	.btn-content {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.btn-glow {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(83.21deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.btn-primary {
+		background: linear-gradient(83.21deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+		color: white;
+	}
+
+	.btn-secondary {
+		background: transparent;
+		border: 2px solid var(--primary-color);
+		color: var(--primary-color);
+	}
+
+	.btn:hover .btn-glow {
+		opacity: 1;
+	}
+
+	.social-links {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.social-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-color);
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.3s ease;
+	}
+
+	.social-link i {
+		font-size: 1.5rem;
+		transition: transform 0.3s ease;
+	}
+
+	.social-link:hover i {
+		transform: translateY(-3px);
+		color: var(--primary-color);
+	}
+
+	.social-link-text {
+		opacity: 0;
+		transform: translateX(-10px);
+		transition: all 0.3s ease;
+	}
+
+	.social-link:hover .social-link-text {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	.hero-image-container {
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero-image-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-image {
+		width: 100%;
+		height: auto;
+		animation: float 6s ease-in-out infinite;
+	}
+
+	.floating-elements {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.floating-element {
+		position: absolute;
+		font-size: 2rem;
+		color: var(--primary-color);
+		animation: float 4s ease-in-out infinite;
+	}
+
+	.element-1 {
+		top: 20%;
+		left: 10%;
+		animation-delay: 0s;
+	}
+
+	.element-2 {
+		top: 60%;
+		right: 15%;
+		animation-delay: 1s;
+	}
+
+	.element-3 {
+		bottom: 20%;
+		left: 20%;
+		animation-delay: 2s;
+	}
+
+	@media (max-width: 768px) {
+		.hero-container {
+			grid-template-columns: 1fr;
+			text-align: center;
+			gap: 2rem;
+		}
+
+		.hero-buttons {
+			justify-content: center;
+		}
+
+		.social-links {
+			justify-content: center;
+		}
+
+		.hero-image-container {
+			order: -1;
+		}
+
+		.name {
+			font-size: 3rem;
+		}
+
+		.title {
+			font-size: 1.5rem;
+		}
+	}
+</style>
+
+<script>
+	const elements = document.querySelectorAll('.floating-element');
+	
+	elements.forEach((element, index) => {
+		(element as HTMLElement).style.animationDelay = `${index * 0.5}s`;
+	});
+
+	// Efecto de parallax suave
+	const heroImage = document.querySelector('.hero-image') as HTMLElement;
+	
+	window.addEventListener('mousemove', (e) => {
+		if (!heroImage) return;
+		
+		const { clientX, clientY } = e;
+		const { innerWidth, innerHeight } = window;
+		
+		const x = (clientX / innerWidth - 0.5) * 20;
+		const y = (clientY / innerHeight - 0.5) * 20;
+		
+		heroImage.style.transform = `translate(${x}px, ${y}px)`;
+	});
+</script> 

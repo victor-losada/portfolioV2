@@ -1,0 +1,178 @@
+---
+const skills = {
+	frontend: [
+		{ name: 'React.js', level: 90 },
+		{ name: 'HTML5', level: 95 },
+		{ name: 'CSS3', level: 90 },
+		{ name: 'JavaScript', level: 90 },
+		{ name: 'TypeScript', level: 30 },
+	],
+	backend: [
+		{ name: 'Node.js', level: 90 },
+		{ name: 'Express.js', level: 85 },
+		{ name: 'MySQL', level: 85 },
+		{ name: 'MongoDB', level: 85 },
+		{ name: 'API REST', level: 90 },
+	],
+	tools: [
+		{ name: 'Git', level: 90 },
+		{ name: 'JWT', level: 85 },
+		{ name: 'Metodologías Ágiles', level: 85 },
+		{ name: 'Microservicios', level: 80 },
+		{ name: 'Cloud Deploy', level: 85 },
+	]
+};
+---
+
+<section id="habilidades" class="skills section">
+	<h2 class="section-title">Habilidades</h2>
+
+	<div class="container skills-container">
+		<div class="skills-category glass fade-in">
+			<h3>Frontend</h3>
+			<div class="skills-grid">
+				{skills.frontend.map(skill => (
+					<div class="skill-item">
+						<div class="skill-info">
+							<span class="skill-name">{skill.name}</span>
+							<span class="skill-percentage">{skill.level}%</span>
+						</div>
+						<div class="skill-bar">
+							<div class="skill-progress" style={`width: ${skill.level}%`}></div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+
+		<div class="skills-category glass fade-in">
+			<h3>Backend</h3>
+			<div class="skills-grid">
+				{skills.backend.map(skill => (
+					<div class="skill-item">
+						<div class="skill-info">
+							<span class="skill-name">{skill.name}</span>
+							<span class="skill-percentage">{skill.level}%</span>
+						</div>
+						<div class="skill-bar">
+							<div class="skill-progress" style={`width: ${skill.level}%`}></div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+
+		<div class="skills-category glass fade-in">
+			<h3>Herramientas y Metodologías</h3>
+			<div class="skills-grid">
+				{skills.tools.map(skill => (
+					<div class="skill-item">
+						<div class="skill-info">
+							<span class="skill-name">{skill.name}</span>
+							<span class="skill-percentage">{skill.level}%</span>
+						</div>
+						<div class="skill-bar">
+							<div class="skill-progress" style={`width: ${skill.level}%`}></div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.skills-container {
+		display: grid;
+		gap: 3rem;
+	}
+
+	.skills-category {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2rem;
+		border-radius: 15px;
+		backdrop-filter: blur(10px);
+		transition: transform 0.3s ease;
+	}
+
+	.skills-category:hover {
+		transform: translateY(-5px);
+	}
+
+	.skills-category h3 {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		color: var(--text-color);
+		text-align: center;
+	}
+
+	.skills-grid {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.skill-item {
+		width: 100%;
+	}
+
+	.skill-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.5rem;
+	}
+
+	.skill-name {
+		font-weight: 500;
+		color: var(--text-color);
+	}
+
+	.skill-level {
+		font-size: 0.9rem;
+		color: var(--text-color);
+		opacity: 0.7;
+	}
+
+	.skill-bar {
+		height: 8px;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.skill-progress {
+		height: 100%;
+		background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+		border-radius: 4px;
+		transition: width 1s ease-in-out;
+	}
+
+	@media (max-width: 768px) {
+		.skills-category {
+			padding: 1.5rem;
+		}
+
+		.skills-category h3 {
+			font-size: 1.3rem;
+		}
+	}
+</style>
+
+<script>
+	// Animación de las barras de progreso al hacer scroll
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const target = entry.target as HTMLElement;
+				target.style.width = target.getAttribute('data-width') || '0';
+			}
+		});
+	}, { threshold: 0.5 });
+
+	document.querySelectorAll('.skill-progress').forEach(progress => {
+		const element = progress as HTMLElement;
+		element.setAttribute('data-width', element.style.width);
+		element.style.width = '0';
+		observer.observe(element);
+	});
+</script> 

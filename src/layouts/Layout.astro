@@ -1,0 +1,182 @@
+---
+import CustomCursor from '../components/CustomCursor.astro';
+import ParticleBackground from '../components/ParticleBackground.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Portafolio profesional de desarrollo web" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<!-- Preconnect a fuentes y recursos externos -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+		
+		<!-- Meta tags para SEO -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+	</head>
+	<body>
+		<CustomCursor />
+		<ParticleBackground />
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--primary-color: #0ea5e9;
+		--secondary-color: #d946ef;
+		--text-color: #f8fafc;
+		--bg-color: #0f172a;
+		--accent-color: #f041ff;
+		--surface-color: rgba(30, 41, 59, 0.7);
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: 'Poppins', sans-serif;
+		background-color: var(--bg-color);
+		color: var(--text-color);
+		scroll-behavior: smooth;
+		overflow-x: hidden;
+	}
+
+	body {
+		margin: 0;
+		width: 100%;
+		min-height: 100vh;
+		line-height: 1.6;
+		overflow-x: hidden;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 1rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	.section {
+		padding: 5rem 0;
+		position: relative;
+		z-index: 1;
+	}
+
+	.section-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-bottom: 3rem;
+		text-align: center;
+		background: linear-gradient(83.21deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		position: relative;
+	}
+
+	.section-title::after {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 60px;
+		height: 4px;
+		background: linear-gradient(83.21deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+		border-radius: 2px;
+	}
+
+	/* Efectos de glassmorphism */
+	.glass {
+		background: var(--surface-color);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 1rem;
+	}
+
+	/* Animaciones */
+	.fade-in {
+		opacity: 0;
+		transform: translateY(20px);
+		transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	}
+
+	.fade-in.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Scrollbar personalizada */
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: var(--bg-color);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: linear-gradient(83.21deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+		border-radius: 5px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: linear-gradient(83.21deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+	}
+
+	@media (max-width: 768px) {
+		.section {
+			padding: 3rem 0;
+		}
+
+		.section-title {
+			font-size: 2rem;
+		}
+	}
+</style>
+
+<script>
+	// Animación de elementos al hacer scroll
+	const observerOptions = {
+		root: null,
+		rootMargin: '0px',
+		threshold: 0.1
+	};
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('visible');
+			}
+		});
+	}, observerOptions);
+
+	document.querySelectorAll('.fade-in').forEach(element => {
+		observer.observe(element);
+	});
+</script>

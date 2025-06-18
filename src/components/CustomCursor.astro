@@ -1,0 +1,112 @@
+<div class="cursor-container">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+</div>
+
+<style>
+  .cursor-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    pointer-events: none;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+  }
+
+  .cursor-ring {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+  }
+
+  .cursor-container.hover .cursor-dot {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  }
+
+  .cursor-container.hover .cursor-ring {
+    width: 60px;
+    height: 60px;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px var(--primary-color);
+  }
+</style>
+
+<script>
+  const cursorContainer = document.querySelector('.cursor-container') as HTMLElement;
+  const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
+  const cursorRing = document.querySelector('.cursor-ring') as HTMLElement;
+
+  // Verificar que todos los elementos necesarios existen
+  if (!cursorContainer || !cursorDot || !cursorRing) {
+    console.error('No se pudieron encontrar los elementos del cursor');
+    throw new Error('Elementos del cursor no encontrados');
+  }
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let dotX = 0;
+  let dotY = 0;
+  let ringX = 0;
+  let ringY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  // Animación suave del cursor
+  function animate() {
+    dotX += (mouseX - dotX) * 0.2;
+    dotY += (mouseY - dotY) * 0.2;
+    cursorDot.style.left = `${dotX}px`;
+    cursorDot.style.top = `${dotY}px`;
+
+    ringX += (mouseX - ringX) * 0.1;
+    ringY += (mouseY - ringY) * 0.1;
+    cursorRing.style.left = `${ringX}px`;
+    cursorRing.style.top = `${ringY}px`;
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Efecto hover en elementos interactivos
+  const interactiveElements = document.querySelectorAll('a, button, [role="button"]');
+  
+  interactiveElements.forEach(element => {
+    element.addEventListener('mouseenter', () => {
+      if (cursorContainer) {
+        cursorContainer.classList.add('hover');
+      }
+    });
+    
+    element.addEventListener('mouseleave', () => {
+      if (cursorContainer) {
+        cursorContainer.classList.remove('hover');
+      }
+    });
+  });
+</script> 

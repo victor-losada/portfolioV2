@@ -1,0 +1,421 @@
+---
+const projects = [
+  {
+    title: "Volarix Capital / Copy Trading Platform",
+    description:
+      "Plataforma con vistas diferenciadas para usuario y administrador.Estadísticas de operaciones en tiempo real, historiales y dashboard.Login oculto seguro para administrador con autenticación JWT y roles. Despliegue en servidor dedicado con aaPanel y Linux.",
+    image: "/volarix.png",
+    technologies: [
+      "Node.js",
+      "Express.js",
+      "MySQL",
+	  "Node.Js",
+      "React",
+	  "servidor apropiado",
+	  "aaPanel",
+	  "mysql",
+	  "Git"
+    ],
+    github: "#",
+    demo: "https://frontend-azure-alpha-25.vercel.app/",
+    status: "Completado",
+  },
+
+  {
+    title: "Plataforma de Gestión de Domiciliarios",
+    description:
+      "Plataforma digital para la gestión eficiente de servicios de entrega. Implementación completa con backend en Node.js y Express.js, base de datos MySQL, y sistema de autenticación JWT.",
+    image: "/Runway.png",
+    technologies: [
+      "Node.js",
+      "Express.js",
+      "MySQL",
+      "JWT",
+      "React",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/victor-losada/RunWay-Project",
+    demo: "https://runwayrapp.netlify.app/",
+    status: "Completado",
+  },
+  {
+    title: "Sistema de Gestión Documental",
+    description:
+      "Plataforma que permite la gestión eficiente de documentos y versiones. Incluye API REST para el manejo de documentos y sistema robusto de seguridad y administración de usuarios.",
+    image: "/Coffco.png",
+    technologies: [
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "React",
+      "JWT",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/victor-losada/COFFCOPROJECT",
+    demo: "#",
+    status: "Completado",
+  },
+  {
+    title: "Pokedex",
+    description:
+      "Aplicación web que consume la API de Pokémon, con diseño moderno y filtros avanzados para explorar el universo Pokémon.",
+    image: "/Pokedex.png",
+    technologies: ["React", "CSS", "APIs", "JavaScript"],
+    github: "https://subtle-lebkuchen-4d7497.netlify.app/",
+    demo: "https://subtle-lebkuchen-4d7497.netlify.app/",
+    status: "Completado",
+  },
+  {
+    title: "Rick and Morty API",
+    description:
+      "Explorador interactivo del universo de Rick and Morty con consumo de API, diseño responsivo y navegación fluida.",
+    image: "/RickAndMorty.png",
+    technologies: ["React", "CSS", "APIs", "JavaScript"],
+    github: "https://github.com/victor-losada/Entregable-3",
+    demo: "https://amazing-moonbeam-3176e1.netlify.app/",
+    status: "Completado",
+  },
+  {
+    title: "Weather App",
+    description:
+      "Aplicación de clima con consumo de API en tiempo real, diseño responsivo y pronósticos detallados.",
+    image: "/Weather.png",
+    technologies: ["React", "CSS", "APIs", "JavaScript"],
+    github: "https://github.com/victor-losada/Entregable_2",
+    demo: "https://transcendent-sawine-55d225.netlify.app/",
+    status: "Completado",
+  },
+  {
+    title: "Galleta de la Fortuna",
+    description:
+      "Aplicación interactiva de galleta de la fortuna con consumo de API y mensajes motivacionales.",
+    image: "/Galleta.png",
+    technologies: ["React", "CSS", "APIs", "JavaScript"],
+    github: "https://github.com/victor-losada/Project1",
+    demo: "https://statuesque-biscochitos-8ec321.netlify.app/",
+    status: "Completado",
+  },
+  {
+    title: "SV7/ Trading Course Platform",
+    description:
+      "Backend para sistema de cursos con lógica de progresión condicional.División por planes (gratuito, mensual, anual) y monetización con anuncios.Sistema de autenticación con Gmail y pasarela de pagos integrad",
+    image: "/image.png",
+    technologies: [
+      "Vite",
+      "React",
+      "Tailwind CSS",
+      "Firebase",
+      "Git",
+      "Javascript",
+    ],
+    github: "https://github.com/victor-losada/S7V-VDemo",
+    web: "https://tradingcompany-1a0q9vl3b-jdadjals-projects.vercel.app/",
+    status: "En curso",
+  }
+];
+---
+
+<section id="proyectos" class="projects section">
+  <h2 class="section-title">Proyectos</h2>
+
+  <div class="container projects-container">
+    {
+      projects.map((project) => (
+        <article class="project-card glass fade-in">
+          <div class="project-header">
+            <div class="project-image">
+              <img src={project.image} alt={project.title} loading="lazy" />
+              <div class="project-overlay">
+                <div class="project-links">
+					{project.github !== "#" && (
+						<a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-link github-link"
+                  >
+                    <i class="fab fa-github" />
+                    <span>Código</span>
+                  </a>
+					)}
+                  
+                  {project.demo !== "#" && project.status === "Completado" && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link demo-link"
+                    >
+                      <i class="fas fa-globe" />
+                      <span>Web</span>
+                    </a>
+                  )}
+				  {project.status === "En curso" && (
+                    <a
+                      href={project.web}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link demo-link cursor-pointer"
+                    >
+                      <i class="fas fa-globe " />
+                      <span>Demo</span>
+                    </a>
+		)}
+                </div>
+              </div>
+            </div>
+            <div class="project-status">
+              <span class="status-badge">{project.status}</span>
+            </div>
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-title">{project.title}</h3>
+            <p class="project-description">{project.description}</p>
+
+            <div class="project-technologies">
+              {project.technologies.map((tech) => (
+                <span class="tech-tag">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+  }
+
+  .project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-color);
+  }
+
+  .project-header {
+    position: relative;
+  }
+
+  .project-image {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  .project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-card:hover .project-overlay {
+    opacity: 1;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .project-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    min-width: 80px;
+  }
+
+  .project-link:hover {
+    background: var(--primary-color);
+    transform: translateY(-5px);
+  }
+
+  .project-link i {
+    font-size: 1.5rem;
+  }
+
+  .project-link span {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .github-link:hover {
+    background: #333;
+  }
+
+  .demo-link:hover {
+    background: var(--secondary-color);
+  }
+
+  .project-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+  }
+
+  .status-badge {
+    background: linear-gradient(
+      45deg,
+      var(--primary-color),
+      var(--secondary-color)
+    );
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .project-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    background: linear-gradient(
+      45deg,
+      var(--primary-color),
+      var(--secondary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .project-description {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(50, 69, 255, 0.1);
+    color: var(--primary-color);
+    border-radius: 15px;
+    border: 1px solid rgba(50, 69, 255, 0.2);
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .tech-tag:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .projects-container {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 0.5rem;
+    }
+
+    .project-image {
+      height: 180px;
+    }
+
+    .project-content {
+      padding: 1rem;
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+    }
+
+    .project-links {
+      gap: 0.5rem;
+    }
+
+    .project-link {
+      padding: 0.8rem;
+      min-width: 70px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .project-image {
+      height: 160px;
+    }
+
+    .project-link {
+      padding: 0.6rem;
+      min-width: 60px;
+    }
+
+    .project-link i {
+      font-size: 1.2rem;
+    }
+
+    .project-link span {
+      font-size: 0.7rem;
+    }
+  }
+</style>
+

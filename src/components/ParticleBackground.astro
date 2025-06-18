@@ -1,0 +1,184 @@
+<div class="particle-container"></div>
+
+<script>
+  // Declaración de módulo para Three.js
+  declare module 'three';
+
+  import type * as THREE from 'three';
+
+  // Importar Three.js de forma dinámica
+  const loadThree = async () => {
+    const THREE = await import('three');
+
+    class ParticleSystem {
+      private container: HTMLElement;
+      private scene: THREE.Scene;
+      private camera: THREE.PerspectiveCamera;
+      private renderer: THREE.WebGLRenderer;
+      private particles: any[];
+      private mouse: THREE.Vector2;
+      private raycaster: THREE.Raycaster;
+      private points: THREE.Points;
+      private lines: THREE.LineSegments;
+
+      constructor() {
+        this.container = document.querySelector('.particle-container') as HTMLElement;
+        if (!this.container) {
+          throw new Error('No se pudo encontrar el contenedor de partículas');
+        }
+
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.renderer = new THREE.WebGLRenderer({ alpha: true });
+        this.particles = [];
+        this.mouse = new THREE.Vector2();
+        this.raycaster = new THREE.Raycaster();
+        
+        this.init();
+        this.animate();
+        this.handleResize();
+        this.handleMouseMove();
+      }
+
+      init() {
+        // Configuración del renderer
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.container.appendChild(this.renderer.domElement);
+
+        // Posición de la cámara
+        this.camera.position.z = 5;
+
+        // Crear partículas
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        const colors = [];
+        const particleCount = 1000;
+
+        for (let i = 0; i < particleCount; i++) {
+          const x = (Math.random() - 0.5) * 10;
+          const y = (Math.random() - 0.5) * 10;
+          const z = (Math.random() - 0.5) * 10;
+          vertices.push(x, y, z);
+
+          const color = new THREE.Color();
+          color.setHSL(Math.random(), 0.7, 0.5);
+          colors.push(color.r, color.g, color.b);
+        }
+
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+          size: 0.05,
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.8,
+        });
+
+        this.points = new THREE.Points(geometry, material);
+        this.scene.add(this.points);
+
+        // Crear líneas entre partículas cercanas
+        this.createLines();
+      }
+
+      createLines() {
+        const positions = this.points.geometry.attributes.position.array;
+        const lineGeometry = new THREE.BufferGeometry();
+        const lineVertices = [];
+        const lineColors = [];
+
+        for (let i = 0; i < positions.length; i += 3) {
+          for (let j = i + 3; j < positions.length; j += 3) {
+            const distance = Math.sqrt(
+              Math.pow(positions[i] - positions[j], 2) +
+              Math.pow(positions[i + 1] - positions[j + 1], 2) +
+              Math.pow(positions[i + 2] - positions[j + 2], 2)
+            );
+
+            if (distance < 1) {
+              lineVertices.push(
+                positions[i], positions[i + 1], positions[i + 2],
+                positions[j], positions[j + 1], positions[j + 2]
+              );
+
+              const color = new THREE.Color();
+              color.setHSL(Math.random(), 0.7, 0.5);
+              lineColors.push(color.r, color.g, color.b);
+              lineColors.push(color.r, color.g, color.b);
+            }
+          }
+        }
+
+        lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(lineVertices, 3));
+        lineGeometry.setAttribute('color', new THREE.Float32BufferAttribute(lineColors, 3));
+
+        const lineMaterial = new THREE.LineBasicMaterial({
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.3,
+        });
+
+        this.lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+        this.scene.add(this.lines);
+      }
+
+      animate() {
+        requestAnimationFrame(() => this.animate());
+
+        // Rotar partículas
+        this.points.rotation.x += 0.0005;
+        this.points.rotation.y += 0.0005;
+        this.lines.rotation.x += 0.0005;
+        this.lines.rotation.y += 0.0005;
+
+        // Interacción con el mouse
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+        const intersects = this.raycaster.intersectObject(this.points);
+
+        if (intersects.length > 0) {
+          const point = intersects[0].point;
+          this.points.material.color.setHSL(Math.random(), 0.7, 0.5);
+        }
+
+        this.renderer.render(this.scene, this.camera);
+      }
+
+      handleResize() {
+        window.addEventListener('resize', () => {
+          this.camera.aspect = window.innerWidth / window.innerHeight;
+          this.camera.updateProjectionMatrix();
+          this.renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      }
+
+      handleMouseMove() {
+        window.addEventListener('mousemove', (event) => {
+          this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+          this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+      }
+    }
+
+    // Inicializar el sistema de partículas cuando el DOM esté listo
+    new ParticleSystem();
+  };
+
+  // Cargar Three.js solo en el navegador
+  if (typeof window !== 'undefined') {
+    loadThree();
+  }
+</script>
+
+<style>
+  .particle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(to bottom, #0f172a, #1e293b);
+  }
+</style> 
